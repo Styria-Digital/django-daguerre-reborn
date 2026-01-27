@@ -89,11 +89,11 @@ jobs:
       - name: Install dependencies
         run: |
           echo "Django version: ${{ matrix.django }}"
-          pip install . --no-deps
-          pip install --no-deps -r test_project/requirements-${{ matrix.django }}.txt
+          pip install .
+          pip install -r test_project/requirements-${{ matrix.django }}.txt
           pip install flake8
-          if [ "${{ matrix.db }}" = "mysql" ]; then pip install --no-deps mysqlclient==1.4.6; fi
-          if [ "${{ matrix.db }}" = "postgres" ]; then pip install --no-deps psycopg2-binary==2.8.4; fi
+          if [ "${{ matrix.db }}" = "mysql" ]; then pip install mysqlclient==1.4.6; fi
+          if [ "${{ matrix.db }}" = "postgres" ]; then pip install psycopg2-binary==2.8.4; fi
 
       - name: Lint
         run: flake8 --ignore=E501,E731,W504 daguerre
