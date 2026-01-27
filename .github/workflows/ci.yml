@@ -13,6 +13,34 @@ jobs:
         python: ["3.9", "3.10", "3.11", "3.12"]
         django: ["3.2", "4.2", "5.2"]
         db: ["sqlite3", "mysql", "postgres"]
+        exclude:
+          - python: "3.9"
+            django: "5.2"
+            db: "sqlite3"
+          - python: "3.9"
+            django: "5.2"
+            db: "mysql"
+          - python: "3.9"
+            django: "5.2"
+            db: "postgres"
+          - python: "3.11"
+            django: "3.2"
+            db: "sqlite3"
+          - python: "3.11"
+            django: "3.2"
+            db: "mysql"
+          - python: "3.11"
+            django: "3.2"
+            db: "postgres"
+          - python: "3.12"
+            django: "3.2"
+            db: "sqlite3"
+          - python: "3.12"
+            django: "3.2"
+            db: "mysql"
+          - python: "3.12"
+            django: "3.2"
+            db: "postgres"
     services:
       mysql:
         image: mysql:8.0
@@ -60,6 +88,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          echo "Django version: ${{ matrix.django }}"
           pip install . --no-deps
           pip install --no-deps -r test_project/requirements-${{ matrix.django }}.txt
           pip install flake8
