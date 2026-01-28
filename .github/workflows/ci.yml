@@ -72,7 +72,7 @@ jobs:
           pip install .
           pip install -r test_project/requirements-${{ matrix.django }}.txt
           pip install flake8
-          if [ "${{ matrix.db }}" = "postgres" ]; then pip install psycopg2-binary==2.8.4; fi
+          if [ "${{ matrix.db }}" = "postgres" ]; then pip install psycopg2-binary==2.9.11; fi
 
       - name: Lint
         run: flake8 --ignore=E501,E731,W504 daguerre
