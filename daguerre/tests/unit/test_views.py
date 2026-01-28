@@ -3,7 +3,7 @@ import json
 from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
 from django.test import RequestFactory
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 from daguerre.helpers import AdjustmentHelper
 from daguerre.models import Area
@@ -100,7 +100,7 @@ class AjaxUpdateAreaViewTestCase(BaseTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], "application/json")
-        data = json.loads(force_text(response.content))
+        data = json.loads(force_str(response.content))
         self.assertEqual(data, area.serialize())
 
     def test_get__pk__wrong(self):
@@ -128,7 +128,7 @@ class AjaxUpdateAreaViewTestCase(BaseTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], "application/json")
-        data = json.loads(force_text(response.content))
+        data = json.loads(force_str(response.content))
         self.assertEqual(data, [area1.serialize(), area2.serialize()])
 
     def test_post__no_change_perms(self):
@@ -141,7 +141,7 @@ class AjaxUpdateAreaViewTestCase(BaseTestCase):
             response = view.post(request)
 
         self.assertEqual(response.status_code, 403)
-        self.assertEqual(force_text(response.content), '')
+        self.assertEqual(force_str(response.content), '')
 
     def test_post__invalid_params(self):
         area = self.create_area(x2=50, y2=50)
@@ -200,7 +200,7 @@ class AjaxUpdateAreaViewTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], "application/json")
         self.assertEqual(Area.objects.count(), 1)
-        data = json.loads(force_text(response.content))
+        data = json.loads(force_str(response.content))
         new_area = Area.objects.get(pk=area.pk, storage_path=area.storage_path)
         self.assertEqual(data, new_area.serialize())
         self.assertNotEqual(data, old_serialize)
@@ -234,7 +234,7 @@ class AjaxUpdateAreaViewTestCase(BaseTestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(Area.objects.count(), 1)
-        data = json.loads(force_text(response.content))
+        data = json.loads(force_str(response.content))
         self.assertEqual(list(data.keys()), ['error'])
 
     def test_post__add(self):
@@ -266,7 +266,7 @@ class AjaxUpdateAreaViewTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], "application/json")
         self.assertEqual(Area.objects.count(), 2)
-        data = json.loads(force_text(response.content))
+        data = json.loads(force_str(response.content))
         new_area = Area.objects.exclude(pk=area.pk).get()
         self.assertEqual(data, new_area.serialize())
         del data['storage_path']
@@ -299,7 +299,7 @@ class AjaxUpdateAreaViewTestCase(BaseTestCase):
 
         self.assertEqual(response.status_code, 403)
         self.assertEqual(Area.objects.count(), 1)
-        self.assertEqual(force_text(response.content), '')
+        self.assertEqual(force_str(response.content), '')
 
     def test_delete__no_perms(self):
         area = self.create_area(x2=50, y2=50)
@@ -319,7 +319,7 @@ class AjaxUpdateAreaViewTestCase(BaseTestCase):
 
         self.assertEqual(response.status_code, 403)
         self.assertEqual(Area.objects.count(), 1)
-        self.assertEqual(force_text(response.content), '')
+        self.assertEqual(force_str(response.content), '')
 
     def test_delete__no_pk(self):
         area = self.create_area(x2=50, y2=50)
@@ -356,5 +356,5 @@ class AjaxUpdateAreaViewTestCase(BaseTestCase):
             response = view.delete(request)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(force_text(response.content), '')
+        self.assertEqual(force_str(response.content), '')
         self.assertEqual(Area.objects.count(), 0)

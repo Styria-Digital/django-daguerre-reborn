@@ -10,6 +10,10 @@ from daguerre.helpers import AdjustmentHelper
 from daguerre.models import Area
 
 
+def is_ajax(request):
+    return request.headers.get('x-requested-with') == 'XMLHttpRequest'
+
+
 class AdjustedImageRedirectView(View):
     """
     Returns a redirect to an :attr:`~AdjustedImage.adjusted` file,
@@ -46,7 +50,7 @@ class AjaxAdjustmentInfoView(AdjustedImageRedirectView):
     secure = False
 
     def get(self, request, *args, **kwargs):
-        if not request.is_ajax():
+        if not is_ajax(request):
             raise Http404("Request is not AJAX.")
 
         helper = self.get_helper(generate=False)
@@ -77,7 +81,7 @@ class AjaxUpdateAreaView(View):
         return self.has_permission(request.user, 'delete', Area)
 
     def get(self, request, *args, **kwargs):
-        if not request.is_ajax():
+        if not is_ajax(request):
             raise Http404("Request is not AJAX.")
 
         storage_path = self.kwargs['storage_path']
@@ -96,7 +100,7 @@ class AjaxUpdateAreaView(View):
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     def post(self, request, *args, **kwargs):
-        if not request.is_ajax():
+        if not is_ajax(request):
             raise Http404("Request is not AJAX.")
 
         if not self.has_change_permission(request):
@@ -138,7 +142,7 @@ class AjaxUpdateAreaView(View):
                             status=status)
 
     def delete(self, request, *args, **kwargs):
-        if not request.is_ajax():
+        if not is_ajax(request):
             raise Http404("Request is not AJAX.")
 
         if self.kwargs['pk'] is None:
