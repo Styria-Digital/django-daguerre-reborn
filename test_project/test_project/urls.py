@@ -1,8 +1,8 @@
-from django.conf.urls import include, url
+from django.urls import include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 
 
 urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [
-    url(r'^', include('daguerre.urls')),
+    re_path(r'^', include('daguerre.urls')),
 ]
