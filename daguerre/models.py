@@ -161,9 +161,7 @@ class AdjustedImage(models.Model):
     requested = models.CharField(max_length=100)
 
     class Meta:
-        indexes = [
-            models.Index(fields=['requested', 'storage_path']),
-        ]
+        index_together = [['requested', 'storage_path'], ]
 
     def __str__(self):
         return u"{0}: {1}".format(self.storage_path, self.requested)
