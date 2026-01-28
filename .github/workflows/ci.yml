@@ -7,7 +7,7 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.django == '5.2' }}
+    continue-on-error: ${{ matrix.allow_failure || false }}
     strategy:
       fail-fast: false
       matrix:
@@ -21,6 +21,24 @@ jobs:
           - python: "3.9"
             django: "5.2"
             db: "postgres"
+          - python: "3.10"
+            django: "5.2"
+            db: "sqlite3"
+          - python: "3.10"
+            django: "5.2"
+            db: "postgres"
+          - python: "3.11"
+            django: "5.2"
+            db: "sqlite3"
+          - python: "3.11"
+            django: "5.2"
+            db: "postgres"
+          - python: "3.12"
+            django: "5.2"
+            db: "sqlite3"
+          - python: "3.12"
+            django: "5.2"
+            db: "postgres"
           - python: "3.11"
             django: "3.2"
             db: "sqlite3"
@@ -33,6 +51,31 @@ jobs:
           - python: "3.12"
             django: "3.2"
             db: "postgres"
+        include:
+          - python: "3.10"
+            django: "5.2"
+            db: "sqlite3"
+            allow_failure: true
+          - python: "3.10"
+            django: "5.2"
+            db: "postgres"
+            allow_failure: true
+          - python: "3.11"
+            django: "5.2"
+            db: "sqlite3"
+            allow_failure: true
+          - python: "3.11"
+            django: "5.2"
+            db: "postgres"
+            allow_failure: true
+          - python: "3.12"
+            django: "5.2"
+            db: "sqlite3"
+            allow_failure: true
+          - python: "3.12"
+            django: "5.2"
+            db: "postgres"
+            allow_failure: true
     services:
       postgres:
         image: postgres:15
