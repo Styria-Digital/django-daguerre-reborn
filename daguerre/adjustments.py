@@ -1,5 +1,10 @@
 from PIL import Image
 
+try:
+    RESAMPLE_LANCZOS = Image.Resampling.LANCZOS
+except AttributeError:  # Pillow<9.1
+    RESAMPLE_LANCZOS = getattr(Image, "LANCZOS", Image.ANTIALIAS)
+
 from daguerre.utils import exif_aware_resize, exif_aware_size
 
 
@@ -128,7 +133,7 @@ class Fit(Adjustment):
         # Choose a resize filter based on whether
         # we're upscaling or downscaling.
         if new_width < image_width:
-            f = Image.ANTIALIAS
+            f = RESAMPLE_LANCZOS
         else:
             f = Image.BICUBIC
 

@@ -6,12 +6,12 @@ from setuptools import setup, find_packages
 version = __import__('daguerre').__version__
 
 setup(
-    name='django-daguerre',
+    name='django-daguerre-reborn',
     version='.'.join([str(v) for v in version]),
     url="http://django-daguerre.readthedocs.org/",
     maintainer='Stephen Burrows',
     maintainer_email='stephen.r.burrows@gmail.com',
-    description='On-the-fly image manipulation for Django 1.11+.',
+    description='On-the-fly image manipulation for Django 3.2+.',
     long_description=open(
             os.path.join(os.path.dirname(__file__), 'README.rst')
     ).read(),
@@ -21,7 +21,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'Pillow',
-        'django>=1.11',
+        'django>=3.2',
     ],
     extras_require={
         'docs': ["sphinx-rtd-theme>=0.1.5"],
@@ -30,10 +30,10 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
@@ -41,10 +41,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Multimedia :: Graphics',
         'Framework :: Django',
-        'Framework :: Django :: 1.11',
-        'Framework :: Django :: 2.0',
-        'Framework :: Django :: 2.1',
-        'Framework :: Django :: 2.2',
-        'Framework :: Django :: 3.0',
+        'Framework :: Django :: 3.2',
+        'Framework :: Django :: 4.2',
     ],
 )
