@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Django Daguerre documentation build configuration file, created by
 # sphinx-quickstart on Tue Jul 31 14:54:31 2012.
